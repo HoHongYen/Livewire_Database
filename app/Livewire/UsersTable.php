@@ -13,6 +13,10 @@ class UsersTable extends Component
     public $perPage = 5;
     public $search = "";
     public $admin = "";
+
+    public function delete(User $user) {
+        $user->delete();
+    }
     public function render()
     {
         return view('livewire.users-table', [
