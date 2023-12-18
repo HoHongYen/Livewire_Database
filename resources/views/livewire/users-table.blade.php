@@ -22,8 +22,7 @@
                     <div class="flex space-x-3">
                         <div class="flex space-x-3 items-center">
                             <label class="w-40 text-sm font-medium text-gray-900">User Type :</label>
-                            <select
-                                wire:model.live="admin"
+                            <select wire:model.live="admin"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                                 <option value="">All</option>
                                 <option value="0">User</option>
@@ -36,10 +35,22 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Name</th>
-                                <th scope="col" class="px-4 py-3">Email</th>
-                                <th scope="col" class="px-4 py-3">Role</th>
-                                <th scope="col" class="px-4 py-3">Joined</th>
+                                @include('livewire.includes.table-sortable-th', [
+                                    'name' => 'name',
+                                    'displayName' => "Name"
+                                ])
+                                @include('livewire.includes.table-sortable-th', [
+                                    'name' => 'email',
+                                    'displayName' => "Email"
+                                ])
+                                @include('livewire.includes.table-sortable-th', [
+                                    'name' => 'is_admin',
+                                    'displayName' => "Role"
+                                ])
+                                @include('livewire.includes.table-sortable-th', [
+                                    'name' => 'created_at',
+                                    'displayName' => "Joined"
+                                ])
                                 <th scope="col" class="px-4 py-3">Last update</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -58,7 +69,10 @@
                                     <td class="px-4 py-3">{{ $user->created_at }}</td>
                                     <td class="px-4 py-3">{{ $user->updated_at }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button onclick="confirm('Are you sure you want to delete {{ $user->name }} ?') || event.stopImmediatePropagation() " wire:click="delete({{ $user->id }})" class="px-3 py-1 bg-red-500 text-white rounded">X</button>
+                                        <button
+                                            onclick="confirm('Are you sure you want to delete {{ $user->name }} ?') || event.stopImmediatePropagation() "
+                                            wire:click="delete({{ $user->id }})"
+                                            class="px-3 py-1 bg-red-500 text-white rounded">X</button>
                                     </td>
                                 </tr>
                             @endforeach
