@@ -12,10 +12,15 @@ class UsersTable extends Component
 
     public $perPage = 5;
     public $search = "";
+    public $admin = "";
     public function render()
     {
         return view('livewire.users-table', [
-            'users' => User::search($this->search)->paginate($this->perPage),
+            'users' => User::search($this->search)
+            ->when($this->admin !== '', function ($query) {
+                $query->where('is_admin', $this->admin);
+            })
+            ->paginate($this->perPage),
         ]);
     }
 }
